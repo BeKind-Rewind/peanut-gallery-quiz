@@ -1,0 +1,26 @@
+body {
+    background-color: #444;
+    color: rgb(255, 246, 116);
+}
+
+header {
+    display: flex;
+    justify-content: space-around;
+    font-size: 2rem;
+}
+
+.btn {
+    background-color: rgb(63, 255, 175);
+    border: 1px solid #222;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgb(36, 51, 86);
+    height: 3rem;
+    width: 10rem;
+}
+
+.container {
+    display: block;
+    text-align: center;
+    text-shadow: 5px 5px 5px #222;
+    font-size: 2rem;
+}
