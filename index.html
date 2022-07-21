@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peanut Gallery Quiz</title>
+</head>
+<body>
+
+    <header>
+        <!-- button to click to display highscores -->
+        <button class="btn" id="highScoreButton">View High Scores</button>
+        <!-- game title -->
+        <h1>Peanut Gallery Quiz</h1>
+        <!-- count-down display -->
+        <timer>TIME LEFT:</timer>
+    </header>
+
+
+    <!-- this is the start container: it is displayed on load and is hidden upon button click-->
+    <div class="container" id="startContainer">
+
+        <h2 id="declare">Test your knowledge!</h2>
+        <h3 id="info">Gather points for correct answers by the time the timer hits 0:</h3> 
+        <p>You will gather points for the number of CORRECT answers given<br> 
+        when the timer runs out but BEWARE: time will be SUBTRACTED <br> 
+        for every WRONG answer!
+        </p>
+
+        <!-- button to start quiz by initializing timer count-down, hiding start-screen and displaying questions ul -->
+        <div class="container" id="quizBody">
+            <button class="btn">COMMENCE!</button>
+        </div>
+
+    </div>
+
+
+    <!-- ul where the questions live: starts hidden but becomes visible on button click-->
+    <div class="container" id="questionContainer">
+        <ul class="list" id="questions">Questions live here</ul>
+    </div>
+
+
+</body>
+</html>
