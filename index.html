@@ -9,7 +9,7 @@
 <body>
 
     <header>
-        <!-- button to click to display highscores -->
+        <!-- button to click to hide startContainer OR questionContainer to display highscoresContainer -->
         <button class="btn" id="highScoreButton">View High Scores</button>
         <!-- game title -->
         <h1>Peanut Gallery Quiz</h1>
@@ -36,9 +36,19 @@
     </div>
 
 
-    <!-- ul where the questions live: starts hidden but becomes visible on button click-->
+    <!-- container with the ul where the questions live: starts hidden but becomes visible on button click-->
     <div class="container" id="questionContainer">
-        <ul class="list" id="questions">Questions live here</ul>
+        <div>
+            <ul class="list" id="questions">Questions live here</ul>
+        </div>
+        <div>
+            <h2 id="highscoreDisplay"></h2>
+        </div>
+    </div>
+
+    <!-- high scores container-->
+    <div class="container" id="highscoresContainer">
+        <ul class="list" id="highscores">High Scores live here</ul>
     </div>
 
 
