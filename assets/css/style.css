@@ -18,6 +18,16 @@ header {
     width: 10rem;
 }
 
+.btn:hover {
+    box-shadow: 0 2px var(--shadow);
+    top: -2px;
+}
+
+.btn:active {
+    box-shadow: 0 0px var(--shadow);
+    top: 0;
+}
+
 .container {
     display: block;
     text-align: center;

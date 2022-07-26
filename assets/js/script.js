@@ -1,19 +1,101 @@
-// code quiz
-
-
-// Create button so that WHEN I click the start button an action is performed
-
+var startContainer = document.getElementById("startContainer");
+var questionContainer = document.getElementById("questionContainer");
+var startBtn = document.getElementById("startBtn");
 
 // When I click THEN a timer starts 
+// window.onload=function() {
+//   document.getElementById(startBtn).addEventListener("click", startTimer);
+
+//   var totalTime = 100;
+
+//   function startTimer() {
+//     document.getElementById(timerDisplay).innerHTML = "Time left: " + totalTime;
+//     if(totalTime < 0) {
+//         setTimeout('document.quiz.submit()', 1);
+//     } else {
+//         totalTime = totalTime -1;
+//         setTimeout(startTimer(), 1000);
+//     }
+//   };
+// };
+
+// setTimeout(startTimer(), 1000);
 
 
 
-// When I click THEN I am presented with a question
+// Also, When I click THEN I am presented with a question
 // Display is hidden on page load; toggles when button clicked
+startBtn.addEventListener('click', () => {
+    // hide button
+    startContainer.style.display = 'none';
+    //show div
+    const questionContainer = document.getElementById('questionContainer');
+    questionContainer.style.display = 'block';
+});
 
+var displayQuestion = function () {
+    var text = "";
+    var questions = localStorage.getItem("questionsList");
+    var questionsArr = JSON.parse(questions);
+    for ( var i = 0; i < questionsArr.length; i++) {
+        text += questionsList[i] + "<br>";
+    };
 
+    document.getElementById("list").innerHTML = text;
 
-// Create Questions with Answer arrays
+};
+
+displayQuestion();
+
+// Create questions with Answer arrays
+var questionsList = [
+    {
+        question: "Which of the following is the correct syntax to print a page using JavaScript?",
+        choices: ["window.print();", "browser.print();", "navigator.print();", "document.print();"],
+        answer: "window.print();",
+    },
+    {
+        question: "Which of the following type of variable is visible only within a function where it is defined?",
+        choices: ["Global variable", "Local variable", "Both of the above.", "None of the above."],
+        answer: "Local variable",
+    },
+    {
+        question: "Which built-in method returns the calling string value converted to lower case?",
+        choices: ["toLowerCase()", "toLower()", "changeCase(case)", "None of the above."],
+        answer: "toLowerCase()",
+    },
+    {
+        question: "Which of the following function of String object creates an HTML hypertext link that requests another URL?",
+        choices: ["sub()", "sup()", "small()", "link()"],
+        answer: "link()",
+    },
+    {
+        question: "Which of the following function of Array object removes the last element from an array and returns that element?",
+        choices: ["push()", "join()", "pop()", "map()"],
+        answer: "pop()",
+    },
+    {
+        question: "Which of the following function of Array object returns a string representing the array and its elements?",
+        choices: ["toSource()", "sort()", "splice()", "toString()"],
+        answer: "toString()",
+    },
+    {
+        question: "Javascript is a(n) _______ language?",
+        choices: ["Object-Based", "Procedural", "", "Object-Oriented"],
+        answer: "Object-Oriented",
+    },
+    {
+        question: "Which of the following methods is used to access HTML elements using Javascript?",
+        choices: ["getElementById()", "getElementsByClass()", "Both A & B", "None of the above"],
+        answer: "Both A & B",
+    },
+    // {
+    //     question: "",
+    //     choices: ["", "", "", ""],
+    //     answer: "",
+    // },
+   
+]
 
 
 
@@ -32,54 +114,6 @@
 // WHEN the game is over THEN (prompt or show form) I can save my initials and score
 // PUSH to array in local storage
 
-
-// Q1 - Which of the following is the correct syntax to print a page using JavaScript?
-// A - window.print();*window.print(); is the correct option.
-// B - browser.print();
-// C - navigator.print();
-// D - document.print();
-
-// Q2 - Which of the following type of variable is visible only within a function where it is defined?
-// A - global variable
-// B - local variable *Local Variables: A local variable will be visible only within a function where it is defined. Function parameters are always local to that function.
-// C - Both of the above.
-// D - None of the above.
-
-// Q3 - Which built-in method returns the calling string value converted to lower case?
-// A - toLowerCase() *toLowerCase() method returns the calling string value converted to lower case.
-// B - toLower()
-// C - changeCase(case)
-// D - None of the above.
-
-// Q4 - Which of the following function of String object creates an HTML hypertext link that requests another URL?
-// A - link() *
-// B - sub()
-// C - sup()
-// D - small()
-
-// Q5 - Which of the following function of Array object removes the last element from an array and returns that element?
-// A - pop() *
-// B - push()
-// C - join()
-// D - map()
-
-// Q6 - Which of the following function of Array object returns a string representing the array and its elements?
-// A - toSource()
-// B - sort()
-// C - splice()
-// D - toString() *
-
-// Q7 Javascript is an _______ language?
-// Object-Oriented *
-// Object-Based
-// Procedural
-// None of the above
-
-// Q8 Which of the following methods is used to access HTML elements using Javascript?
-// getElementById()
-// getElementsByClass()
-// Both A & B *
-// None of the above
 
 
 
