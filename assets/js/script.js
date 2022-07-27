@@ -1,52 +1,3 @@
-var startContainer = document.getElementById("startContainer");
-var questionContainer = document.getElementById("questionContainer");
-var startBtn = document.getElementById("startBtn");
-
-// When I click THEN a timer starts 
-// window.onload=function() {
-//   document.getElementById(startBtn).addEventListener("click", startTimer);
-
-//   var totalTime = 100;
-
-//   function startTimer() {
-//     document.getElementById(timerDisplay).innerHTML = "Time left: " + totalTime;
-//     if(totalTime < 0) {
-//         setTimeout('document.quiz.submit()', 1);
-//     } else {
-//         totalTime = totalTime -1;
-//         setTimeout(startTimer(), 1000);
-//     }
-//   };
-// };
-
-// setTimeout(startTimer(), 1000);
-
-
-
-// Also, When I click THEN I am presented with a question
-// Display is hidden on page load; toggles when button clicked
-startBtn.addEventListener('click', () => {
-    // hide button
-    startContainer.style.display = 'none';
-    //show div
-    const questionContainer = document.getElementById('questionContainer');
-    questionContainer.style.display = 'block';
-});
-
-var displayQuestion = function () {
-    var text = "";
-    var questions = localStorage.getItem("questionsList");
-    var questionsArr = JSON.parse(questions);
-    for ( var i = 0; i < questionsArr.length; i++) {
-        text += questionsList[i] + "<br>";
-    };
-
-    document.getElementById("list").innerHTML = text;
-
-};
-
-displayQuestion();
-
 // Create questions with Answer arrays
 var questionsList = [
     {
@@ -96,6 +47,77 @@ var questionsList = [
     // },
    
 ]
+
+
+
+var startContainer = document.getElementById("startContainer");
+var questionContainer = document.getElementById("questionContainer");
+var startBtn = document.getElementById("startBtn");
+
+var totalTime = quizQuestions.length * 10;
+var quiz = 8;
+var timerStatus;
+
+
+// When I click THEN a timer starts 
+function start () {
+    //   document.getElementById(startBtn).addEventListener("click", startTimer);
+    var startQuiz = document.getElementById(startBtn);
+    startQuiz.setAttribute("class", "hide");
+    questionsEl.removeAttribute("class");
+    timerStatus = setInterval(function() {
+        time--
+    },
+    );
+
+  function startTimer() {
+    document.getElementById(timerDisplay).innerHTML = "Time left: " + totalTime;
+    if(totalTime < 0) {
+        setTimeout('document.quiz.submit()', 1);
+    } else {
+        totalTime = totalTime -1;
+        setTimeout(startTimer(), 1000);
+    }
+  };
+};
+
+setTimeout(startTimer(), 1000);
+
+
+
+// Also, When I click THEN I am presented with a question
+// Display is hidden on page load; toggles when button clicked
+startBtn.addEventListener('click', () => {
+    // hide button
+    startContainer.style.display = 'none';
+    //show div
+    const questionContainer = document.getElementById('questionContainer');
+    questionContainer.style.display = 'block';
+});
+
+
+
+var stringQuestions = JSON. stringify(questionsList);
+localStorage.setItem("questionsList", stringQuestions);
+
+// Displays the questions and their info
+var displayQuestion = function () {
+    var text = "";
+    // Retrieves the questionsList info from local storgae
+    var questions = localStorage.getItem("questionsList");
+    // Parse the string into an object
+    var questionsArr = JSON.parse(questions);
+    for (var i = 0; i < questionsArr.length; i++) {
+        text += questionsList[i] + "<br>";
+    };
+
+    document.getElementById("list").innerHTML = text;
+
+};
+
+displayQuestion();
+
+
 
 
 
