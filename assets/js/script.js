@@ -46,43 +46,87 @@ var questionsList = [
     //     answer: "",
     // },
    
-]
+];
 
 
 
 var startContainer = document.getElementById("startContainer");
 var questionContainer = document.getElementById("questionContainer");
 var startBtn = document.getElementById("startBtn");
+var initQuestion = 0;
+var choiceArr = document.getElementById("choices");
+var scoreDisplay = document.getElementById("scoreDisplay");
+var check = document.getElementById("check");
+var timerEl = document.getElementById("timerDisplay");
 
-var totalTime = quizQuestions.length * 10;
+
+var totalTime = questionsList.length * 10;
 var quiz = 8;
 var timerStatus;
 
 
 // When I click THEN a timer starts 
 function start () {
-    //   document.getElementById(startBtn).addEventListener("click", startTimer);
-    var startQuiz = document.getElementById(startBtn);
-    startQuiz.setAttribute("class", "hide");
-    questionsEl.removeAttribute("class");
     timerStatus = setInterval(function() {
-        time--
-    },
-    );
+        
+        totalTime--;
+        // time--;
 
-  function startTimer() {
-    document.getElementById(timerDisplay).innerHTML = "Time left: " + totalTime;
-    if(totalTime < 0) {
-        setTimeout('document.quiz.submit()', 1);
-    } else {
-        totalTime = totalTime -1;
-        setTimeout(startTimer(), 1000);
-    }
-  };
+        timerEl.textContent = totalTime;
+        // timerEl.textContent = time;
+        if(totalTime === 0){
+            quizEnd();
+            console.log("quiz is done!");
+        }
+
+    }, 1000);
+
+    updateScore(0);
+    showQuestion();
 };
 
-setTimeout(startTimer(), 1000);
+// set the beginning score to 0
+var score = 0;
 
+// function to display and update score
+function updateScore (){
+    scoreDisplay.textContent = score;
+}
+
+
+var showQuestion = function() {
+    choiceArr.innerHTML = '';
+    var currentQuestion = questionsList[initQuestion];
+    var name = document.getElementById("question");
+    name.textContent = currentQuestion.question;
+
+    currentQuestion.choices.forEach(function(option) {
+        var choiceBtn = document.createElement("button");
+        var listItem = document.createElement("li");
+        choiceBtn.setAttribute("value", option);
+        choiceBtn.setAttribute("class", "choice");
+        choiceBtn.textContent = option;
+        choiceBtn.onclick = questionCheck;
+        listItem.appendChild(choiceBtn);
+        choiceArr.appendChild(listItem);
+
+    });
+};
+
+function questionCheck(event) {
+    console.log(event);
+    if (event.target.value === questionsList[initQuestion].answer){
+        score++;
+        check.textContent = "Correct!";
+        updateScore();
+    } else {
+        // subtract 10 from timer count
+        check.textContent = "Wrong!";
+    }
+    initQuestion = initQuestion + 1;
+    showQuestion();
+
+};
 
 
 // Also, When I click THEN I am presented with a question
@@ -93,36 +137,9 @@ startBtn.addEventListener('click', () => {
     //show div
     const questionContainer = document.getElementById('questionContainer');
     questionContainer.style.display = 'block';
+    // start quiz
+    start();
 });
-
-
-
-var stringQuestions = JSON. stringify(questionsList);
-localStorage.setItem("questionsList", stringQuestions);
-
-// Displays the questions and their info
-var displayQuestion = function () {
-    var text = "";
-    // Retrieves the questionsList info from local storgae
-    var questions = localStorage.getItem("questionsList");
-    // Parse the string into an object
-    var questionsArr = JSON.parse(questions);
-    for (var i = 0; i < questionsArr.length; i++) {
-        text += questionsList[i] + "<br>";
-    };
-
-    document.getElementById("list").innerHTML = text;
-
-};
-
-displayQuestion();
-
-
-
-
-
-// WHEN I answer a question THEN I am presented with another question
-
 
 
 // WHEN I answer a question incorrectly THEN time is subtracted from the clock
@@ -130,11 +147,18 @@ displayQuestion();
 
 
 // END GAME_GAME OVER: WHEN all questions are answered or the timer reaches 0
+function quizEnd() {
+    startContainer.style.display = 'none';
+    // Container for endGame: "Time's Up!", display score, and form for initials input
+
+    // PUSH (initials and high score) to array in local storage JSON.parse and JSON.stringify
+}
 
 
+// Create High Score HTML
 
-// WHEN the game is over THEN (prompt or show form) I can save my initials and score
-// PUSH to array in local storage
+// Get previous top 10 scores displayed on the highscore html 
+
 
 
 
