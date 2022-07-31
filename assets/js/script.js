@@ -1,3 +1,17 @@
+// start container 
+var startContainer = document.getElementById("startContainer");
+var startBtn = document.getElementById("startBtn");
+// questions container
+var questionContainer = document.getElementById("questionContainer");
+var choiceArr = document.getElementById("choices");
+// score
+var scoreDisplay = document.getElementById("scoreDisplay");
+// answer correctness feedback
+var check = document.getElementById("check");
+// timer display
+var timerEl = document.getElementById("timerDisplay");
+
+
 // Create questions with Answer arrays
 var questionsList = [
     {
@@ -32,7 +46,7 @@ var questionsList = [
     },
     {
         question: "Javascript is a(n) _______ language?",
-        choices: ["Object-Based", "Procedural", "", "Object-Oriented"],
+        choices: ["Object-Based", "Procedural", "Object-Oriented", "None of the above"],
         answer: "Object-Oriented",
     },
     {
@@ -40,29 +54,54 @@ var questionsList = [
         choices: ["getElementById()", "getElementsByClass()", "Both A & B", "None of the above"],
         answer: "Both A & B",
     },
-    // {
-    //     question: "",
-    //     choices: ["", "", "", ""],
-    //     answer: "",
-    // },
+    {
+        question: "Which of the following keywords is used to define a variable in Javascript?",
+        choices: ["var", "let", "Both A & B", "None of the above"],
+        answer: "Both A & B",
+    },
+    {
+        question: "Upon encountering empty statements, what does the Javascript Interpreter do?",
+        choices: ["Throws and error", "Ignores the statements", "Gives a warning", "None of the above"],
+        answer: "Ignores the statements",
+    },
+    {
+        question: "When the switch statement matches the expression with the given labels, how is the comparison done?",
+        choices: ["Both the datatype and the result of the expression are compared", "Only the datatype of the expression is compared", "Only the value of the expression is compared", "None of the Above"],
+        answer: "Both the datatype and the result of the expression are compared",
+    },
+    {
+        question: "What is the use of the <noscript> tag in Javascript?",
+        choices: ["The contents are displayed in non-JS-based browsers", "Clears all the cookies and the cache", "Both A & B", "None of the above"],
+        answer: "The contents are displayed in non-JS-based browsers",
+    },
+    {
+        question: "What will be the output of: ' print(typeof(NaN)); ' ?",
+        choices: ["Object", "Number", "String", "None of the Above"],
+        answer: "Number",
+    },
+    {
+        question: "What keyword is used to check whether a given property is valid or not?",
+        choices: ["in", "is in", "exists", "lies"],
+        answer: "in",
+    },
+    {
+        question: "Which of the following are closures in Javascript?",
+        choices: ["Variables", "Functions", "Objects", "All of the above"],
+        answer: "All of the above",
+    },
+    {
+        question: "Which function is used to serialize an object into a JSON string in Javascript?",
+        choices: ["stringify", "parse", "convert", "None of the above"],
+        answer: "stringify",
+    },
    
 ];
 
-
-
-var startContainer = document.getElementById("startContainer");
-var questionContainer = document.getElementById("questionContainer");
-var startBtn = document.getElementById("startBtn");
-var initQuestion = 0;
-var choiceArr = document.getElementById("choices");
-var scoreDisplay = document.getElementById("scoreDisplay");
-var check = document.getElementById("check");
-var timerEl = document.getElementById("timerDisplay");
-
-
-var totalTime = questionsList.length * 10;
-var quiz = 8;
+var totalTime = questionsList.length * 5;
 var timerStatus;
+// start with first question 
+var initQuestion = 0;
+
 
 
 // When I click THEN a timer starts 
@@ -70,15 +109,13 @@ function start () {
     timerStatus = setInterval(function() {
         
         totalTime--;
-        // time--;
-
         timerEl.textContent = totalTime;
-        // timerEl.textContent = time;
-        if(totalTime === 0){
-            quizEnd();
-            console.log("quiz is done!");
-        }
 
+        if(totalTime <= 0){
+            clearInterval(totalTime);
+            quizEnd();
+            stop();
+        }
     }, 1000);
 
     updateScore(0);
@@ -121,6 +158,7 @@ function questionCheck(event) {
         updateScore();
     } else {
         // subtract 10 from timer count
+        totalTime = totalTime - 10;
         check.textContent = "Wrong!";
     }
     initQuestion = initQuestion + 1;
@@ -148,11 +186,36 @@ startBtn.addEventListener('click', () => {
 
 // END GAME_GAME OVER: WHEN all questions are answered or the timer reaches 0
 function quizEnd() {
+
     startContainer.style.display = 'none';
     // Container for endGame: "Time's Up!", display score, and form for initials input
 
     // PUSH (initials and high score) to array in local storage JSON.parse and JSON.stringify
-}
+    ("End of the quiz. Your final score was: " + score + " / " + questionsList.length +
+    ". Your score percentage was: " + Math.floor(score / questionsList.length * 100) + "%. " +
+    "Enter name: ");
+
+    var newScoreRecord = newHighScore + ": " + JSON.stringify(score) + "/" + questionsList.length + " - " +
+    JSON.stringify(score / questionsList.length * 100) + "%";
+
+    var highScores = JSON.parse(localStorage.getItem("highScores"));
+
+    if (highScores === null) {
+        var updatedRanking = [];
+        updatedRanking.push(newScoreRecord);
+        localStorage.setItem("highScores", JSON.stringify(updatedRanking));
+    } else {
+        highScores.push(newScoreRecord);
+        localStorage.setItem("highScores", JSON.stringify(highScores));
+    }
+
+    var userHighScore = localStorage.getItem("userHighScore");
+    if (score >= userHighScore) {
+        var updateUserHighScore = score;
+        localStorage.setItem("userHighScore", updateUserHighScore);
+        localStorage.setItem("highestScoreName", newHighScore);
+    }
+};
 
 
 // Create High Score HTML

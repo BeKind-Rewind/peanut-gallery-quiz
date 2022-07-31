@@ -5,7 +5,8 @@ body {
 
 header {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    text-shadow: 5px 5px 5px #222;
     font-size: 2rem;
 }
 

@@ -10,24 +10,21 @@
 <body>
 
     <header>
-        <!-- button to click to hide startContainer OR questionContainer to display highscoresContainer -->
-        <button class="btn" id="highScoreButton">View High Scores</button>
-        <!-- game title -->
-        <h1>Peanut Gallery Quiz</h1>
-        <!-- count-down display -->
-        <div id="timerDisplay"></div>
+        <h1>Ye Olde JavaScript Quiz</h1>
     </header>
-
 
     <!-- this is the start container: it is displayed on load and is hidden upon button click-->
     <div class="container" id="startContainer">
 
-        <h2 id="declare">Test your knowledge!</h2>
-        <h3 id="info">Gather points for correct answers by the time the timer hits 0:</h3> 
-        <p>You will gather points for the number of CORRECT answers given<br> 
-        when the timer runs out but BEWARE: time will be SUBTRACTED <br> 
-        for every WRONG answer!
-        </p>
+        <h2 id="declare">TEST YOUR KNOWLEDGE</h2>
+        <h3 id="info"></h3> 
+        <p>Get as many points as possible before time runs out:</p>
+    
+        <p>Correct answers ADD 1 point to total score</p>
+        <p>Incorrect answers SUBTRACT 10 seconds from
+            <br>
+            remaining time.</p>
+        <p>When ready: CLICK THE BUTTON!</p>
 
         <!-- button to start quiz by initializing timer count-down, hiding start-screen and displaying questions ul -->
         <div class="container" id="quizBody">
@@ -39,18 +36,27 @@
 
     <!-- container with the ul where the questions live: starts hidden but becomes visible on button click-->
     <div class="container" id="questionContainer">
+        <!-- count-down display -->
+        <div id="timerDisplay"></div>
         <div>
-            <h2 id="scoreDisplay"></h2>
+            <h2 class="stats" id="scoreDisplay"></h2>
         </div>
-        <h2 id="question"></h2>
+        <h2 class="stats" id="question"></h2>
         <div>
             <ul class="list" id="choices"></ul>
         </div>
         <div>
-            <h4 id="check"></h4>
+            <h4 class="stats" id="check"></h4>
         </div>
 
     </div>
+
+    <footer>
+        <div class="container" id="highScoreContainer">
+            <!-- button to click to display highScores.html -->
+            <button class="btn" id="highScoreButton">View High Scores</button>
+        </div>
+    </footer>
 
     <script src="./assets/js/script.js"></script>
 </body>
