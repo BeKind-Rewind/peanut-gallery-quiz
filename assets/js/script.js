@@ -217,9 +217,6 @@ function quizEnd() {
     }
 };
 
-
-// Create High Score HTML
-
 // Get previous top 10 scores displayed on the highscore html 
 
 
