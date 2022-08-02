@@ -40,8 +40,8 @@ li {
     list-style: none;
 }
 
-.choice {
-    background-color: rgb(120, 156, 254);
+.highScore {
+    background-color: rgb(255, 202, 43);
     border: 1px solid #222;
     border-radius: 5px;
     box-shadow: 5px 5px 5px rgb(36, 51, 86);

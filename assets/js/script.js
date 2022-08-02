@@ -102,7 +102,7 @@ var timerStatus;
 // start with first question 
 var initQuestion = 0;
 
-
+var questionsListEnd = questionsList.slice(-1);
 
 // When I click THEN a timer starts 
 function start () {
@@ -113,14 +113,18 @@ function start () {
 
         if(totalTime <= 0){
             clearInterval(totalTime);
-            quizEnd();
-            stop();
+            return console.log("GAMEOVER");
         }
     }, 1000);
 
     updateScore(0);
     showQuestion();
+    
+    
 };
+
+
+
 
 // set the beginning score to 0
 var score = 0;
@@ -180,42 +184,39 @@ startBtn.addEventListener('click', () => {
 });
 
 
-// WHEN I answer a question incorrectly THEN time is subtracted from the clock
-
-
 
 // END GAME_GAME OVER: WHEN all questions are answered or the timer reaches 0
-function quizEnd() {
+// function quizEnd() {
 
-    startContainer.style.display = 'none';
-    // Container for endGame: "Time's Up!", display score, and form for initials input
+//     startContainer.style.display = 'none';
+//     // Container for endGame: "Time's Up!", display score, and form for initials input
 
-    // PUSH (initials and high score) to array in local storage JSON.parse and JSON.stringify
-    ("End of the quiz. Your final score was: " + score + " / " + questionsList.length +
-    ". Your score percentage was: " + Math.floor(score / questionsList.length * 100) + "%. " +
-    "Enter name: ");
+//     // PUSH (initials and high score) to array in local storage JSON.parse and JSON.stringify
+//     ("End of the quiz. Your final score was: " + score + " / " + questionsList.length +
+//     ". Your score percentage was: " + Math.floor(score / questionsList.length * 100) + "%. " +
+//     "Enter name: ");
 
-    var newScoreRecord = newHighScore + ": " + JSON.stringify(score) + "/" + questionsList.length + " - " +
-    JSON.stringify(score / questionsList.length * 100) + "%";
+//     var newScoreRecord = newHighScore + ": " + JSON.stringify(score) + "/" + questionsList.length + " - " +
+//     JSON.stringify(score / questionsList.length * 100) + "%";
 
-    var highScores = JSON.parse(localStorage.getItem("highScores"));
+//     var highScores = JSON.parse(localStorage.getItem("highScores"));
 
-    if (highScores === null) {
-        var updatedRanking = [];
-        updatedRanking.push(newScoreRecord);
-        localStorage.setItem("highScores", JSON.stringify(updatedRanking));
-    } else {
-        highScores.push(newScoreRecord);
-        localStorage.setItem("highScores", JSON.stringify(highScores));
-    }
+//     if (highScores === null) {
+//         var updatedRanking = [];
+//         updatedRanking.push(newScoreRecord);
+//         localStorage.setItem("highScores", JSON.stringify(updatedRanking));
+//     } else {
+//         highScores.push(newScoreRecord);
+//         localStorage.setItem("highScores", JSON.stringify(highScores));
+//     }
 
-    var userHighScore = localStorage.getItem("userHighScore");
-    if (score >= userHighScore) {
-        var updateUserHighScore = score;
-        localStorage.setItem("userHighScore", updateUserHighScore);
-        localStorage.setItem("highestScoreName", newHighScore);
-    }
-};
+//     var userHighScore = localStorage.getItem("userHighScore");
+//     if (score >= userHighScore) {
+//         var updateUserHighScore = score;
+//         localStorage.setItem("userHighScore", updateUserHighScore);
+//         localStorage.setItem("highestScoreName", newHighScore);
+//     }
+// };
 
 // Get previous top 10 scores displayed on the highscore html 
 
