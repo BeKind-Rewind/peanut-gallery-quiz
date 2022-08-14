@@ -2,14 +2,18 @@
 var startContainer = document.getElementById("startContainer");
 var startBtn = document.getElementById("startBtn");
 // questions container
-var questionContainer = document.getElementById("questionContainer");
+var questionsToHide = document.getElementById("questionsToHide");
 var choiceArr = document.getElementById("choices");
+var name = document.getElementById("question");
 // score
 var scoreDisplay = document.getElementById("scoreDisplay");
 // answer correctness feedback
 var check = document.getElementById("check");
 // timer display
 var timerEl = document.getElementById("timerDisplay");
+// endgame final score
+var finalTally = document.getElementById("finalTally");
+var initials = document.getElementById("initials");
 
 
 // Create questions with Answer arrays
@@ -97,6 +101,7 @@ var questionsList = [
    
 ];
 
+
 var totalTime = questionsList.length * 5;
 var timerStatus;
 // start with first question 
@@ -112,18 +117,61 @@ function start () {
         timerEl.textContent = totalTime;
 
         if(totalTime <= 0){
-            clearInterval(totalTime);
-            return console.log("GAMEOVER");
+            clearInterval(timerStatus);
+            totalTime = 0;
+            timerEl.textContent = totalTime;
+            endQuiz();
+            // clearInterval(timerStatus);
+            console.log("GAMEOVER");
         }
     }, 1000);
 
     updateScore(0);
     showQuestion();
     
-    
 };
 
+var endQuiz = function() { 
+    var showEndScreen = document.getElementById("end-screen");
+    showEndScreen.removeAttribute("class");
+    questionsToHide.setAttribute("class", "hide");
+    
+    var newHighScore = score + "/" + questionsList.length
 
+    finalTally.innerHTML = ("End of the quiz. Your final score was: " + score + " / " + questionsList.length +
+    ". Your score percentage was: " + Math.floor(score / questionsList.length * 100) + "%. " +
+    "Enter name: ");
+     console.log("why is there a problem???")
+
+    var newScoreRecord = newHighScore + " - " +
+    JSON.stringify(score / questionsList.length * 100) + "%";
+
+    initials.addEventListener("submit", (event)=> {
+        event.preventDefault();
+        createHighscore(newScoreRecord)
+    })
+}
+
+// google "javascript redirect" direct user to high scores page
+// then get from local storage to display on the page
+// remember to get questions to display again
+// get the initials to save with the score --> event.target to get to the value of the form
+
+function createHighscore(newScoreRecord) {
+    
+    console.log(newScoreRecord);
+    var highScores = JSON.parse(localStorage.getItem("highScores"));
+
+    if (highScores === null) {
+        var updatedRanking = [];
+        updatedRanking.push(newScoreRecord);
+        localStorage.setItem("highScores", JSON.stringify(updatedRanking));
+    } else {
+        highScores.push(newScoreRecord);
+        localStorage.setItem("highScores", JSON.stringify(highScores));
+    }
+
+}
 
 
 // set the beginning score to 0
@@ -138,7 +186,6 @@ function updateScore (){
 var showQuestion = function() {
     choiceArr.innerHTML = '';
     var currentQuestion = questionsList[initQuestion];
-    var name = document.getElementById("question");
     name.textContent = currentQuestion.question;
 
     currentQuestion.choices.forEach(function(option) {
@@ -155,7 +202,6 @@ var showQuestion = function() {
 };
 
 function questionCheck(event) {
-    console.log(event);
     if (event.target.value === questionsList[initQuestion].answer){
         score++;
         check.textContent = "Correct!";
@@ -176,47 +222,17 @@ function questionCheck(event) {
 startBtn.addEventListener('click', () => {
     // hide button
     startContainer.style.display = 'none';
-    //show div
-    const questionContainer = document.getElementById('questionContainer');
-    questionContainer.style.display = 'block';
     // start quiz
     start();
 });
 
+// eventlistener for initials form submit
+// push score and initials to local storage
+// get list of high scores
+// display list 
+// compare to top 10
 
-
-// END GAME_GAME OVER: WHEN all questions are answered or the timer reaches 0
-// function quizEnd() {
-
-//     startContainer.style.display = 'none';
-//     // Container for endGame: "Time's Up!", display score, and form for initials input
-
-//     // PUSH (initials and high score) to array in local storage JSON.parse and JSON.stringify
-//     ("End of the quiz. Your final score was: " + score + " / " + questionsList.length +
-//     ". Your score percentage was: " + Math.floor(score / questionsList.length * 100) + "%. " +
-//     "Enter name: ");
-
-//     var newScoreRecord = newHighScore + ": " + JSON.stringify(score) + "/" + questionsList.length + " - " +
-//     JSON.stringify(score / questionsList.length * 100) + "%";
-
-//     var highScores = JSON.parse(localStorage.getItem("highScores"));
-
-//     if (highScores === null) {
-//         var updatedRanking = [];
-//         updatedRanking.push(newScoreRecord);
-//         localStorage.setItem("highScores", JSON.stringify(updatedRanking));
-//     } else {
-//         highScores.push(newScoreRecord);
-//         localStorage.setItem("highScores", JSON.stringify(highScores));
-//     }
-
-//     var userHighScore = localStorage.getItem("userHighScore");
-//     if (score >= userHighScore) {
-//         var updateUserHighScore = score;
-//         localStorage.setItem("userHighScore", updateUserHighScore);
-//         localStorage.setItem("highestScoreName", newHighScore);
-//     }
-// };
+    
 
 // Get previous top 10 scores displayed on the highscore html 
 

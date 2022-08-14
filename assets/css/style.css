@@ -40,6 +40,13 @@ li {
     list-style: none;
 }
 
+.stats {
+    display: block;
+    text-align: center;
+    text-shadow: 5px 5px 5px #222;
+    font-size: 2rem;
+}
+
 .choice {
     background-color: rgb(120, 156, 254);
     border: 1px solid #222;
@@ -47,4 +54,8 @@ li {
     box-shadow: 5px 5px 5px rgb(36, 51, 86);
     height: 3rem;
     width: 10rem;
+}
+
+.hide {
+    display: none;
 }

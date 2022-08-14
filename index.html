@@ -5,12 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Peanut Gallery Quiz</title>
+    <title>JavaScript Quiz</title>
 </head>
 <body>
-
     <header>
-        <h1>Ye Olde JavaScript Quiz</h1>
+        <h1>JavaScript Quiz</h1>
     </header>
 
     <!-- this is the start container: it is displayed on load and is hidden upon button click-->
@@ -28,29 +27,41 @@
 
         <!-- button to start quiz by initializing timer count-down, hiding start-screen and displaying questions ul -->
         <div class="container" id="quizBody">
-            <button class="btn" id="startBtn">COMMENCE!</button>
+            <button class="btn" id="startBtn">Begin!</button>
         </div>
 
     </div>
 
 
     <!-- container with the ul where the questions live: starts hidden but becomes visible on button click-->
-    <div class="container" id="questionContainer">
+    <div class="container">
         <!-- count-down display -->
         <div id="timerDisplay"></div>
         <div>
             <h2 class="stats" id="scoreDisplay"></h2>
         </div>
-        <h2 class="stats" id="question"></h2>
-        <div>
-            <ul class="list" id="choices"></ul>
-        </div>
-        <div>
+        
+        <div id="questionsToHide">
+            <h2 class="stats" id="question"></h2>
+            <div>
+                <ul class="list" id="choices"></ul>
+            </div>
             <h4 class="stats" id="check"></h4>
         </div>
-
+        
     </div>
 
+    <div class="container hide" id="end-screen">
+        <h2 class="stats">Game is over!</h2>
+        <p id="finalTally"></p>
+
+        <form class="container" id="initials">
+            <input type="text">
+            <input type="submit" value="Submit">
+            <!-- <submit class="btn" id="highscoreSubmit"></submit> -->
+        </form>
+    </div>
+    
     <footer>
         <div class="container" id="highScoreContainer">
             <!-- button to click to display highScores.html -->
