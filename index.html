@@ -9,6 +9,13 @@
     <title>JavaScript Quiz</title>
 </head>
 
+<nav>
+    <div class="container" id="highScoreContainer">
+        <!-- button to click to display highScores.html -->
+        <a href="lib/highscores.html"><button class="btn" id="highScoreBtn">View High Scores</button></a>
+    </div>
+</nav>
+
 <body>
     <header>
         <h1>JavaScript Quiz</h1>
@@ -58,17 +65,15 @@
         <h2 class="stats">You're out of time!</h2>
         <p id="finalTally"></p>
 
-        <form class="container" id="highScoreForm">
-            <input type="text" id="initials">
+        <form class="container" id="initials">
+            <input type="text" id="input">
+            <br>
             <button class="btn" id="save-score">Save Score</button>
         </form>
     </div>
 
     <footer>
-        <div class="container" id="highScoreContainer">
-            <!-- button to click to display highScores.html -->
-            <a href="lib/highscores.html"><button class="btn" id="highScoreBtn">View High Scores</button></a>
-        </div>
+
     </footer>
 
     <script src="./assets/js/script.js"></script>

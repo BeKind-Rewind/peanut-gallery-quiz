@@ -10,6 +10,8 @@ var check = document.getElementById("check");
 var timerEl = document.getElementById("timerDisplay");
 var finalTally = document.getElementById("finalTally");
 var initialsText = document.getElementById("initials");
+var saveBtn = document.getElementById("save-score");
+var input = document.getElementById("input");
 var highScoresList = document.getElementById("highScoresList");
 
 // Create questions with Answer arrays
@@ -66,11 +68,11 @@ let questionsList = [
     },
     {
         question: "When the switch statement matches the expression with the given labels, how is the comparison done?",
-        choices: ["Both the datatype and the result of the expression are compared", "Only the datatype of the expression is compared", "Only the value of the expression is compared", "None of the Above"],
-        answer: "Both the datatype and the result of the expression are compared",
+        choices: ["Both datatype and result are compared", "Only the datatype is compared", "Only the value is compared", "None of the Above"],
+        answer: "Both datatype and result are compared",
     },
     {
-        question: "What is the use of the <noscript> tag in Javascript?",
+        question: "What is the use of the 'noscript' tag in Javascript?",
         choices: ["The contents are displayed in non-JS-based browsers", "Clears all the cookies and the cache", "Both A & B", "None of the above"],
         answer: "The contents are displayed in non-JS-based browsers",
     },
@@ -93,7 +95,7 @@ let questionsList = [
         question: "Which function is used to serialize an object into a JSON string in Javascript?",
         choices: ["stringify", "parse", "convert", "None of the above"],
         answer: "stringify",
-    },
+    }
 
 ];
 
@@ -104,8 +106,7 @@ var totalTime = questionsList.length * 5;
 var timerStatus;
 // start with first question 
 var initQuestion = 0;
-// declare variable for the end of questions, used to end quiz
-var questionsListEnd = questionsList.slice(-1);
+
 
 
 
@@ -118,7 +119,7 @@ function start() {
         // display current totalTime in the HTML element variable timerEl
         timerEl.textContent = totalTime;
 
-        if (totalTime <= 0) {
+        if (totalTime <= 0 || questionsList[16]) {
             // if time runs out or goes negative, the timer stops
             clearInterval(timerStatus);
             // if time is 0 or less, set totalTime value to 0
@@ -140,41 +141,23 @@ var endQuiz = function () {
     var showEndScreen = document.getElementById("end-screen");
     showEndScreen.removeAttribute("class");
     questionsToHide.setAttribute("class", "hide");
-
-    var newHighScore = score + "/" + questionsList.length
-
-    finalTally.innerHTML = ("Final score:" + "<br />" + score + " / " + questionsList.length +
-        "." + "<br />" + Math.floor(score / questionsList.length * 100) + "%" + "<br />" +
-        "Enter name: ");
-
-    var newScoreRecord = newHighScore + " - " +
-        JSON.stringify(score / questionsList.length * 100) + "%";
-
-    initialsText.addEventListener("submit", (event) => {
-        event.preventDefault();
-        let initials = initialsText.value;
-        //Store Initials and Score in Local Storage
-        var resultsDataObj = {
-            initials: initials,
-            newScoreRecord: score
-        }
-        localStorage.setItem((localStorage.length + 1), JSON.stringify(resultsDataObj));
-        initialsText.value = ""
-        location.reload();
-        createHighscore(resultsDataObj)
-    })
+    finalTally.innerHTML = ("Final score:" + score + "<br />" + "Enter initials:");
 }
 
-// google "javascript redirect" direct user to high scores page
-// then get from local storage to display on the page
-// remember to get questions to display again
-// get the initials to save with the score --> event.target to get to the value of the form
-
-
+initialsText.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let initials = input.value;
+    //Store Initials and Score in Local Storage
+    var resultsDataObj = {
+        initials: initials,
+        score: score
+    }
+    localStorage.setItem((localStorage.length + 1), JSON.stringify(resultsDataObj));
+    createHighscore(resultsDataObj);
+})
 
 
 function createHighscore(resultsDataObj) {
-
     console.log(resultsDataObj);
     var highScores = JSON.parse(localStorage.getItem("highScores"));
 
@@ -186,6 +169,8 @@ function createHighscore(resultsDataObj) {
         highScores.push(resultsDataObj);
         localStorage.setItem("highScores", JSON.stringify(highScores));
     }
+
+    location.reload();
 
 }
 
@@ -233,7 +218,7 @@ function questionCheck(event) {
 };
 
 
-// Also, When I click THEN I am presented with a question
+// When I click THEN I am presented with a question
 // Display is hidden on page load; toggles when button clicked
 startBtn.addEventListener('click', () => {
     // hide button
@@ -242,15 +227,8 @@ startBtn.addEventListener('click', () => {
     start();
 });
 
-// eventlistener for initials form submit
-// push score and initials to local storage
-// get list of high scores
-// display list 
-// compare to top 10
-// Get previous top 10 scores displayed on the highscore html 
-
-
-
+// var highScoreBtn = document.querySelector("#highScoreBtn");
+// var highScoresList = document.querySelector("highScoresList");
 
 
 
