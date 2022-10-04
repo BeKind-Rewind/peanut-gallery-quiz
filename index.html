@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>JavaScript Quiz</title>
 </head>
+
 <body>
     <header>
         <h1>JavaScript Quiz</h1>
@@ -15,14 +17,15 @@
     <!-- this is the start container: it is displayed on load and is hidden upon button click-->
     <div class="container" id="startContainer">
 
-        <h2 id="declare">TEST YOUR KNOWLEDGE</h2>
-        <h3 id="info"></h3> 
+        <h2 id="declare">Test your JavaScript knowledge:</h2>
+        <h3 id="info"></h3>
         <p>Get as many points as possible before time runs out:</p>
-    
+
         <p>Correct answers ADD 1 point to total score</p>
         <p>Incorrect answers SUBTRACT 10 seconds from
             <br>
-            remaining time.</p>
+            remaining time.
+        </p>
         <p>When ready: CLICK THE BUTTON!</p>
 
         <!-- button to start quiz by initializing timer count-down, hiding start-screen and displaying questions ul -->
@@ -40,7 +43,7 @@
         <div>
             <h2 class="stats" id="scoreDisplay"></h2>
         </div>
-        
+
         <div id="questionsToHide">
             <h2 class="stats" id="question"></h2>
             <div>
@@ -48,20 +51,19 @@
             </div>
             <h4 class="stats" id="check"></h4>
         </div>
-        
+
     </div>
 
     <div class="container hide" id="end-screen">
-        <h2 class="stats">Game is over!</h2>
+        <h2 class="stats">You're out of time!</h2>
         <p id="finalTally"></p>
 
-        <form class="container" id="initials">
-            <input type="text">
-            <input type="submit" value="Submit">
-            <!-- <submit class="btn" id="highscoreSubmit"></submit> -->
+        <form class="container" id="highScoreForm">
+            <input type="text" id="initials">
+            <button class="btn" id="save-score">Save Score</button>
         </form>
     </div>
-    
+
     <footer>
         <div class="container" id="highScoreContainer">
             <!-- button to click to display highScores.html -->
@@ -71,4 +73,5 @@
 
     <script src="./assets/js/script.js"></script>
 </body>
+
 </html>

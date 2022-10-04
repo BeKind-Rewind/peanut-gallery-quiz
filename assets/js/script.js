@@ -1,23 +1,19 @@
 // start container 
-var startContainer = document.getElementById("startContainer");
-var startBtn = document.getElementById("startBtn");
+const startContainer = document.getElementById("startContainer");
+const startBtn = document.getElementById("startBtn");
 // questions container
-var questionsToHide = document.getElementById("questionsToHide");
-var choiceArr = document.getElementById("choices");
-var name = document.getElementById("question");
-// score
+const questionsToHide = document.getElementById("questionsToHide");
+const choiceArr = document.getElementById("choices");
+const question = document.getElementById("question");
 var scoreDisplay = document.getElementById("scoreDisplay");
-// answer correctness feedback
 var check = document.getElementById("check");
-// timer display
 var timerEl = document.getElementById("timerDisplay");
-// endgame final score
 var finalTally = document.getElementById("finalTally");
-var initials = document.getElementById("initials");
-
+var initialsText = document.getElementById("initials");
+var highScoresList = document.getElementById("highScoresList");
 
 // Create questions with Answer arrays
-var questionsList = [
+let questionsList = [
     {
         question: "Which of the following is the correct syntax to print a page using JavaScript?",
         choices: ["window.print();", "browser.print();", "navigator.print();", "document.print();"],
@@ -98,57 +94,74 @@ var questionsList = [
         choices: ["stringify", "parse", "convert", "None of the above"],
         answer: "stringify",
     },
-   
+
 ];
 
 
+// Set total quiz time based on number of questions:
 var totalTime = questionsList.length * 5;
+// declare variable
 var timerStatus;
 // start with first question 
 var initQuestion = 0;
-
+// declare variable for the end of questions, used to end quiz
 var questionsListEnd = questionsList.slice(-1);
 
-// When I click THEN a timer starts 
-function start () {
-    timerStatus = setInterval(function() {
-        
+
+
+// When I click, THEN a timer starts 
+function start() {
+    showQuestion();
+    timerStatus = setInterval(function () {
+        // every time this function runs, 1 is subtracted from totalTime
         totalTime--;
+        // display current totalTime in the HTML element variable timerEl
         timerEl.textContent = totalTime;
 
-        if(totalTime <= 0){
+        if (totalTime <= 0) {
+            // if time runs out or goes negative, the timer stops
             clearInterval(timerStatus);
+            // if time is 0 or less, set totalTime value to 0
             totalTime = 0;
+            // if time is 0 or less, set display to 0 
             timerEl.textContent = totalTime;
+            // run endQuiz function
             endQuiz();
-            // clearInterval(timerStatus);
             console.log("GAMEOVER");
         }
     }, 1000);
 
     updateScore(0);
-    showQuestion();
-    
+
+
 };
 
-var endQuiz = function() { 
+var endQuiz = function () {
     var showEndScreen = document.getElementById("end-screen");
     showEndScreen.removeAttribute("class");
     questionsToHide.setAttribute("class", "hide");
-    
+
     var newHighScore = score + "/" + questionsList.length
 
-    finalTally.innerHTML = ("End of the quiz. Your final score was: " + score + " / " + questionsList.length +
-    ". Your score percentage was: " + Math.floor(score / questionsList.length * 100) + "%. " +
-    "Enter name: ");
-     console.log("why is there a problem???")
+    finalTally.innerHTML = ("Final score:" + "<br />" + score + " / " + questionsList.length +
+        "." + "<br />" + Math.floor(score / questionsList.length * 100) + "%" + "<br />" +
+        "Enter name: ");
 
     var newScoreRecord = newHighScore + " - " +
-    JSON.stringify(score / questionsList.length * 100) + "%";
+        JSON.stringify(score / questionsList.length * 100) + "%";
 
-    initials.addEventListener("submit", (event)=> {
+    initialsText.addEventListener("submit", (event) => {
         event.preventDefault();
-        createHighscore(newScoreRecord)
+        let initials = initialsText.value;
+        //Store Initials and Score in Local Storage
+        var resultsDataObj = {
+            initials: initials,
+            newScoreRecord: score
+        }
+        localStorage.setItem((localStorage.length + 1), JSON.stringify(resultsDataObj));
+        initialsText.value = ""
+        location.reload();
+        createHighscore(resultsDataObj)
     })
 }
 
@@ -157,17 +170,20 @@ var endQuiz = function() {
 // remember to get questions to display again
 // get the initials to save with the score --> event.target to get to the value of the form
 
-function createHighscore(newScoreRecord) {
-    
-    console.log(newScoreRecord);
+
+
+
+function createHighscore(resultsDataObj) {
+
+    console.log(resultsDataObj);
     var highScores = JSON.parse(localStorage.getItem("highScores"));
 
     if (highScores === null) {
         var updatedRanking = [];
-        updatedRanking.push(newScoreRecord);
+        updatedRanking.push(resultsDataObj);
         localStorage.setItem("highScores", JSON.stringify(updatedRanking));
     } else {
-        highScores.push(newScoreRecord);
+        highScores.push(resultsDataObj);
         localStorage.setItem("highScores", JSON.stringify(highScores));
     }
 
@@ -178,17 +194,17 @@ function createHighscore(newScoreRecord) {
 var score = 0;
 
 // function to display and update score
-function updateScore (){
+function updateScore() {
     scoreDisplay.textContent = score;
 }
 
 
-var showQuestion = function() {
+var showQuestion = function () {
     choiceArr.innerHTML = '';
     var currentQuestion = questionsList[initQuestion];
-    name.textContent = currentQuestion.question;
+    question.innerHTML = currentQuestion.question;
 
-    currentQuestion.choices.forEach(function(option) {
+    currentQuestion.choices.forEach(function (option) {
         var choiceBtn = document.createElement("button");
         var listItem = document.createElement("li");
         choiceBtn.setAttribute("value", option);
@@ -202,7 +218,7 @@ var showQuestion = function() {
 };
 
 function questionCheck(event) {
-    if (event.target.value === questionsList[initQuestion].answer){
+    if (event.target.value === questionsList[initQuestion].answer) {
         score++;
         check.textContent = "Correct!";
         updateScore();
@@ -231,13 +247,7 @@ startBtn.addEventListener('click', () => {
 // get list of high scores
 // display list 
 // compare to top 10
-
-    
-
 // Get previous top 10 scores displayed on the highscore html 
-
-
-
 
 
 

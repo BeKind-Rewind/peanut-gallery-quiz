@@ -19,6 +19,13 @@ header {
     width: 10rem;
 }
 
+p {
+    display: block;
+    text-align: center;
+    text-shadow: 5px 5px 5px #222;
+    font-size: 2rem;
+}
+
 .btn:hover {
     box-shadow: 0 2px var(--shadow);
     top: -2px;
