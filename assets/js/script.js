@@ -14,6 +14,8 @@ var saveBtn = document.getElementById("save-score");
 var input = document.getElementById("input");
 var highScoresList = document.getElementById("highScoresList");
 
+highScores = [];
+
 // Create questions with Answer arrays
 let questionsList = [
     {
@@ -137,6 +139,7 @@ function start() {
 
 };
 
+
 var endQuiz = function () {
     var showEndScreen = document.getElementById("end-screen");
     showEndScreen.removeAttribute("class");
@@ -170,7 +173,38 @@ function createHighscore(resultsDataObj) {
         localStorage.setItem("highScores", JSON.stringify(highScores));
     }
 
+
+    // var listItemEl = document.createElement("li");
+    // listItemEl.className = "highScore";
+    // listItemEl.setAttribute("", taskIdCounter);
+
+    // var taskInfoEl = document.createElement("div");
+    // taskInfoEl.className = "task-info";
+    // taskInfoEl.innerHTML =
+    //     "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";
+    // listItemEl.appendChild(taskInfoEl);
+
+    // var taskActionsEl = createTaskActions(taskIdCounter);
+    // listItemEl.appendChild(taskActionsEl);
+
     location.reload();
+
+}
+
+
+var createTaskEl = function (taskDataObj) {
+    var listItemEl = document.createElement("li");
+    listItemEl.className = "task-item";
+    listItemEl.setAttribute("data-task-id", taskIdCounter);
+
+    var taskInfoEl = document.createElement("div");
+    taskInfoEl.className = "task-info";
+    taskInfoEl.innerHTML =
+        "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";
+    listItemEl.appendChild(taskInfoEl);
+
+    var taskActionsEl = createTaskActions(taskIdCounter);
+    listItemEl.appendChild(taskActionsEl);
 
 }
 
@@ -226,12 +260,5 @@ startBtn.addEventListener('click', () => {
     // start quiz
     start();
 });
-
-// var highScoreBtn = document.querySelector("#highScoreBtn");
-// var highScoresList = document.querySelector("highScoresList");
-
-
-
-
 
 
