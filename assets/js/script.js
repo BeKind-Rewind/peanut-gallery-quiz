@@ -244,22 +244,14 @@ function viewHighScore() {
         //creating HTML element
         console.log(highScores.length);
         var listUnOrdered = document.createElement("ul");
-        //setting style
-        listUnOrdered.style.background = secondColor;
-        listUnOrdered.style, justifyContent = "space-between";
-        listUnOrdered.style.listStyle = "none";
-
         // iterating through the array of values in localStore
-        for (var i = 0; i < saveHighScore.length; i++) {
+        for (var i = 0; i < highScores.length; i++) {
             var li = document.createElement("li");
             li.innerHTML = "<div style = 'text-align: left;'>" + (i + 1) + ". " +
-                JSON.stringify(saveHighScore[i].user) + " - " + JSON.stringify(saveHighScore[i].score) +
+                JSON.stringify(highScores[i].initials) + " - " + JSON.stringify(highScores[i].score) +
                 "</div>";
-            li.style.textAlign = textCnt;
-            li.style.background = thirdColor;
-            li.style.borderBottom = "10px";
             listUnOrdered.appendChild(li);
         }
-        container.appendChild(listUnOrdered);
+        highScoresList.appendChild(listUnOrdered);
     }
 }
