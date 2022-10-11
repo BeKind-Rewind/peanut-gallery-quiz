@@ -173,38 +173,7 @@ function createHighscore(resultsDataObj) {
         localStorage.setItem("highScores", JSON.stringify(highScores));
     }
 
-
-    // var listItemEl = document.createElement("li");
-    // listItemEl.className = "highScore";
-    // listItemEl.setAttribute("", taskIdCounter);
-
-    // var taskInfoEl = document.createElement("div");
-    // taskInfoEl.className = "task-info";
-    // taskInfoEl.innerHTML =
-    //     "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";
-    // listItemEl.appendChild(taskInfoEl);
-
-    // var taskActionsEl = createTaskActions(taskIdCounter);
-    // listItemEl.appendChild(taskActionsEl);
-
     location.reload();
-
-}
-
-
-var createTaskEl = function (taskDataObj) {
-    var listItemEl = document.createElement("li");
-    listItemEl.className = "task-item";
-    listItemEl.setAttribute("data-task-id", taskIdCounter);
-
-    var taskInfoEl = document.createElement("div");
-    taskInfoEl.className = "task-info";
-    taskInfoEl.innerHTML =
-        "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";
-    listItemEl.appendChild(taskInfoEl);
-
-    var taskActionsEl = createTaskActions(taskIdCounter);
-    listItemEl.appendChild(taskActionsEl);
 
 }
 
@@ -252,7 +221,7 @@ function questionCheck(event) {
 };
 
 
-// When I click THEN I am presented with a question
+// When I click start THEN I am presented with a question
 // Display is hidden on page load; toggles when button clicked
 startBtn.addEventListener('click', () => {
     // hide button
@@ -262,3 +231,35 @@ startBtn.addEventListener('click', () => {
 });
 
 
+// create new function to get all scores from local storage on load
+// parse and loop, inside loop create another li and append to highscore
+function viewHighScore() {
+    var highScores = JSON.parse(localStorage.getItem("highScores"));
+    if (highScores === null) {
+        var noHighScores = document.createElement("p");
+        noHighScores.innerHTML = "No highscores yet!";
+        highScoresList.appendChild(noHighScores)
+        return;
+    } else {
+        //creating HTML element
+        console.log(highScores.length);
+        var listUnOrdered = document.createElement("ul");
+        //setting style
+        listUnOrdered.style.background = secondColor;
+        listUnOrdered.style, justifyContent = "space-between";
+        listUnOrdered.style.listStyle = "none";
+
+        // iterating through the array of values in localStore
+        for (var i = 0; i < saveHighScore.length; i++) {
+            var li = document.createElement("li");
+            li.innerHTML = "<div style = 'text-align: left;'>" + (i + 1) + ". " +
+                JSON.stringify(saveHighScore[i].user) + " - " + JSON.stringify(saveHighScore[i].score) +
+                "</div>";
+            li.style.textAlign = textCnt;
+            li.style.background = thirdColor;
+            li.style.borderBottom = "10px";
+            listUnOrdered.appendChild(li);
+        }
+        container.appendChild(listUnOrdered);
+    }
+}
